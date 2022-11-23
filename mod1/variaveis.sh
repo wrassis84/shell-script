@@ -11,6 +11,14 @@ echo "$NAME"
 NUMBER_1="24"
 NUMBER_2="90"
 
+# For arithmetic operations, we must use dollar sign followed by double
+# parentheses:
 TOTAL=$(($NUMBER_1+$NUMBER_2))
 
 echo "$TOTAL"
+
+# We can assign the output of commands  for variables.
+# For command outputs we can use a dollar sign followed by parentheses.
+CAT_OUTPUT="$(cat /etc/passwd | grep william)"
+
+echo "$CAT_OUTPUT"
