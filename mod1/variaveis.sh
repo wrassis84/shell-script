@@ -1,16 +1,16 @@
 #!/usr/bin/env bash 
 
-# Quando usamos variáveis com espaços e quebras de linha...
-NOME="William Ramos
+# When using variable values with spaces and line brakes...
+NAME="William Ramos
 de Assis Rezende"
 
-# Nós precisamos usar aspas duplas para ler ou mostrar o valor das variáveis.
-# Isso vai preservar os espaços e a formatação!
-echo "$NOME"
+# We must use double quoted to read or show the variable values.
+# This will preserve the variable formatting!
+echo "$NAME"
 
-NUMERO_1="24"
-NUMERO_2="90"
+NUMBER_1="24"
+NUMBER_2="90"
 
-TOTAL=$(($NUMERO_1+$NUMERO_2))
+TOTAL=$(($NUMBER_1+$NUMBER_2))
 
 echo "$TOTAL"
