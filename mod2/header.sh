@@ -7,7 +7,7 @@
 # Maintainer: William Ramos de Assis Rezende
 #
 # -------------------------------------------------------------
-# Instructions:
+# Description:
 #
 # This program will get latest Bitcoin quote by the API XXX.
 #
@@ -31,6 +31,7 @@
 # --------------------------------------------------------------
 # Variables Definitions:
 #
+PARAMMETER=1
 # --------------------------------------------------------------
 # Tests/Validations:
 #
@@ -38,9 +39,21 @@
 # Function Definitions:
 #
 # --------------------------------------------------------------
-# "Code Execution":
+# "Code Execution"
 # BEGIN OF CODE ------------------------------------------------
 #
 # Verifies if Lynx is installed.
 [ ! -x "$(which lynx)" ] && echo "Lynx isn't installed!"
+
+if [ $PARAMMETER -gt 0 ]
+then
+  if [ $PARAMMETER -gt 1 ] # Any comment!
+  then
+    if [ $PARAMMETER -gt 2 ]
+    then
+      echo "Hi!"
+    fi
+  fi
+fi
+#
 # END OF CODE --------------------------------------------------
