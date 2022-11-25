@@ -3,68 +3,53 @@
 ################################################################
 ### ABOUT ::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
-# GoldQuote.sh - Check the latest Gold quote.
+# ListUsers.sh - List system users using "etc/passwd" file.
 #
-# Site      : https://4fasters.com.br
+# Site      : https://github.com/wrassis84/shell-script.git
 # Author    : William Ramos de Assis Rezende
-# Maintainer: Linus Torvalds
+# Maintainer: William Ramos de Assis Rezende
 #
 ################################################################
 ### DESCRIPTION ::::::::::::::::::::::::::::::::::::::::::::::::
 #
-# This program will get latest Gold quote for today.
+# This program will list system users and output shall can be
+# manipulated of many ways.
 #
-# Usage: ./GoldQuote.sh -t utc
-#        In this sample will run this program with time option
-#        for UTC time.
+# Usage:
+# ./ListUsers.sh
+# In this example, we will have all system users in the order
+# they appear in the "/etc/passwd" file.
 #
 ################################################################
 ### CHANGELOG ::::::::::::::::::::::::::::::::::::::::::::::::::
 #
-#   v1.1 19/08/2022, Linus Torvalds:
-#        - Added feature -h for help;
-#        - Added feature -f for specify another file;
-#   v1.0 15/06/2022, William Ramos de Assis Rezende:
-#        - Program's first version;
+# v1.0 25/11/2022, William Ramos de Assis Rezende:
+#      - Program's first version;
 #
 ################################################################
 ### TESTING ENVIRONMENT ::::::::::::::::::::::::::::::::::::::::
 #
-#   zsh 5.8.1
-#
-################################################################
-### THANKS :::::::::::::::::::::::::::::::::::::::::::::::::::::
-#
-#   Bender Bending Rodriguez - Find a login bug;
-#   Turanga Leela - Suggestion sent to add the -h option;
-#   Hubert Farnsworth - Find a error in quote calculus;
+# zsh 5.8.1
 #
 ################################################################
 ### VARIABLES DEFINITIONS ::::::::::::::::::::::::::::::::::::::
 #
-comeca=0
-ate=100
+USERS="$(cat /etc/passwd | cut -d : -f 1)"
+USAGE_MESSAGE="
+  $0 - [OPTIONS]
+  -h - Show this help
+  -v - Show program version
+  -s - Sort output alphabetically
+"
+VERSION="v1.0"
 #
 ################################################################
 ### TESTS/VALIDATIONS ::::::::::::::::::::::::::::::::::::::::::
 #
-# Is bc installed?
-[ ! -x "$(which bc)" ] && echo "bc isn't installed! \
-                                Please, Install it!"
-#
 ################################################################
 ### BEGIN OF CODE ::::::::::::::::::::::::::::::::::::::::::::::
 #
-[ $comeca -gt $ate ] && exit 1
-
-for i in $(seq $comeca $ate)
-do
-  for j in $(seq $i $ate)
-  do
-    printf "*";
-  done
-  printf "\n";
-done
+echo "$USERS"
 #
 ### END OF CODE ::::::::::::::::::::::::::::::::::::::::::::::::
 ################################################################
