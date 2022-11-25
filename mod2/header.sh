@@ -57,5 +57,15 @@ then
     fi
   fi
 fi
+
+# Long command lines should be broken and indented.
+# Bad :\
+find / -iname "*.so" -user william -type f -size +1M -exec ls {} \;
+# Good ;)
+find / -iname "*.so" \
+       -user william \
+       -type f       \
+       -size +1M     \
+       -exec ls {}   \;
 #
 # END OF CODE --------------------------------------------------
