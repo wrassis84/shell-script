@@ -42,7 +42,9 @@ PARAMMETER=1
 # "Code Execution"
 # BEGIN OF CODE ------------------------------------------------
 #
-# Verifies if Lynx is installed.
+# Comments need to be concise and clear. They can be in 
+# question format:
+# Is Lynx installed?
 [ ! -x "$(which lynx)" ] && echo "Lynx isn't installed!"
 
 if [ $PARAMMETER -gt 0 ]
