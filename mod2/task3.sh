@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 #
+################################################################
+# ABOUT ::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+#
 # GoldQuote.sh - Check the latest Gold quote.
 #
 # Site      : https://4fasters.com.br
