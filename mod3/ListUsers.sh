@@ -53,6 +53,10 @@ if [ "$1" = "-h" ]; then
   echo "$USAGE_MESSAGE" && exit 0
 fi
 
+if [ "$1" = "-v" ]; then
+  echo "$VERSION"       && exit 0
+fi
+
 echo "$USERS"
 #
 ### END OF CODE ::::::::::::::::::::::::::::::::::::::::::::::::
