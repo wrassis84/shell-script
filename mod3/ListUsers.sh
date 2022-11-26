@@ -25,6 +25,10 @@
 #
 # v1.0 25/11/2022, William Ramos de Assis Rezende:
 #      - Program's first version;
+# v1.1 26/11/2022, William Ramos de Assis Rezende:
+#      - Added -h option for help;
+#      - Added -v option for program version;
+#      - Added -s option for sort output;
 #
 ################################################################
 ### TESTING ENVIRONMENT ::::::::::::::::::::::::::::::::::::::::
@@ -41,7 +45,7 @@ USAGE_MESSAGE="
         -v - Show program version.
         -s - Sort output alphabetically.
 "
-VERSION="v1.0"
+VERSION="v1.1"
 #
 ################################################################
 ### TESTS/VALIDATIONS ::::::::::::::::::::::::::::::::::::::::::
