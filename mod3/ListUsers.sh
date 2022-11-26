@@ -5,7 +5,7 @@
 #
 # ListUsers.sh - List system users using "etc/passwd" file.
 #
-# Site      : https://github.com/wrassis84/shell-script.git
+# Site      : https://github.com/wrassis84/shell-script
 # Author    : William Ramos de Assis Rezende
 # Maintainer: William Ramos de Assis Rezende
 #
@@ -40,10 +40,11 @@
 #
 USERS="$(cat /etc/passwd | cut -d : -f 1)"
 USAGE_MESSAGE="
-     $0 - [OPTIONS]:
-        -h - Show this help.
-        -v - Show program version.
-        -s - Sort output alphabetically.
+  $(basename $0)
+  [OPTIONS]:
+   -h - Show this help.
+   -v - Show program version.
+   -s - Sort output alphabetically.
 "
 VERSION="v1.1"
 #
@@ -53,19 +54,12 @@ VERSION="v1.1"
 ################################################################
 ### BEGIN OF CODE ::::::::::::::::::::::::::::::::::::::::::::::
 #
-if [ "$1" = "-h" ]; then
-  echo "$USAGE_MESSAGE" && exit 0
-fi
-
-if [ "$1" = "-v" ]; then
-  echo "$VERSION"       && exit 0
-fi
-
-if [ "$1" = "-s" ]; then
-  echo "$USERS" | sort  && exit 0
-fi
-
-echo "$USERS"
+case "$1" in
+  -h) echo "$USAGE_MESSAGE"  && exit 0;;
+  -v) echo "$VERSION"        && exit 0;;
+  -s) echo "$USERS" | sort   && exit 0;;
+   *) echo "$USERS"                   ;;
+esac
 #
 ### END OF CODE ::::::::::::::::::::::::::::::::::::::::::::::::
 ################################################################
