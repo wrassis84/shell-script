@@ -23,13 +23,18 @@
 ################################################################
 ### CHANGELOG ::::::::::::::::::::::::::::::::::::::::::::::::::
 #
-# v1.0 25/11/2022, William Ramos de Assis Rezende:
-#      - Program's first version;
-# v1.1 26/11/2022, William Ramos de Assis Rezende:
-#      - Added -h option for help;
-#      - Added -v option for program version;
+# v1.3 26/11/2022, William Ramos de Assis Rezende:
+#      - Added WHILE statement plus SHIFT and input validation;
+#      - Added suport for using 2 options at sametime;
+# v1.2 26/11/2022, William Ramos de Assis Rezende:
 #      - Added -s option for sort output;
 #      - Added -u option for uppercase output;
+# v1.1 26/11/2022, William Ramos de Assis Rezende:
+#      - Changed IF for CASE statement;
+#      - Added "basename" statement;
+# v1.0 25/11/2022, William Ramos de Assis Rezende:
+#      - Program's first version;
+#      - Added -h and -v options;
 #
 ################################################################
 ### TESTING ENVIRONMENT ::::::::::::::::::::::::::::::::::::::::
@@ -48,7 +53,7 @@ USAGE_MESSAGE="
    -s - Sort output alphabetically.
    -u - Convert output to UPPERCASE.
 "
-VERSION="v1.1"
+VERSION="v1.3"
 SORT_OUT=0
 UPPERCASE=0
 #
@@ -58,16 +63,22 @@ UPPERCASE=0
 ################################################################
 ### BEGIN OF CODE ::::::::::::::::::::::::::::::::::::::::::::::
 #
-case "$1" in
-  -h) echo "$USAGE_MESSAGE" && exit 0 ;;
-  -v) echo "$VERSION" && exit 0       ;;
-  -s) SORT_OUT=1                      ;;
-  -u) UPPERCASE=1                     ;;
-   *) echo "$USERS"                   ;;
-esac
+while test -n "$1"
+do
+  case "$1" in
+    -h) echo "$USAGE_MESSAGE" && exit 0     ;;
+    -v) echo "$VERSION" && exit 0           ;;
+    -s) SORT_OUT=1                          ;;
+    -u) UPPERCASE=1                         ;;
+     *) echo "Invalid Option! :(" && exit 1 ;;
+  esac
+  shift
+done
 
-[ $SORT_OUT -eq 1  ] && echo "$USERS" | sort
-[ $UPPERCASE -eq 1 ] && echo "$USERS" | tr [a-z] [A-Z]
+[ $SORT_OUT -eq 1  ] && USERS=$(echo "$USERS" | sort)
+[ $UPPERCASE -eq 1 ] && USERS=$(echo "$USERS" | tr [a-z] [A-Z])
+
+echo "$USERS"
 #
 ### END OF CODE ::::::::::::::::::::::::::::::::::::::::::::::::
 ################################################################
