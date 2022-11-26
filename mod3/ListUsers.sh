@@ -36,10 +36,10 @@
 #
 USERS="$(cat /etc/passwd | cut -d : -f 1)"
 USAGE_MESSAGE="
-  $0 - [OPTIONS]
-  -h - Show this help
-  -v - Show program version
-  -s - Sort output alphabetically
+     $0 - [OPTIONS]:
+        -h - Show this help.
+        -v - Show program version.
+        -s - Sort output alphabetically.
 "
 VERSION="v1.0"
 #
@@ -49,6 +49,10 @@ VERSION="v1.0"
 ################################################################
 ### BEGIN OF CODE ::::::::::::::::::::::::::::::::::::::::::::::
 #
+if [ "$1" = "-h" ]; then
+  echo "$USAGE_MESSAGE" && exit 0
+fi
+
 echo "$USERS"
 #
 ### END OF CODE ::::::::::::::::::::::::::::::::::::::::::::::::
