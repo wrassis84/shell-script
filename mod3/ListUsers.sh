@@ -47,6 +47,7 @@ USAGE_MESSAGE="
    -s - Sort output alphabetically.
 "
 VERSION="v1.1"
+SORT_OUT=0
 #
 ################################################################
 ### TESTS/VALIDATIONS ::::::::::::::::::::::::::::::::::::::::::
@@ -55,11 +56,12 @@ VERSION="v1.1"
 ### BEGIN OF CODE ::::::::::::::::::::::::::::::::::::::::::::::
 #
 case "$1" in
-  -h) echo "$USAGE_MESSAGE"  && exit 0;;
-  -v) echo "$VERSION"        && exit 0;;
-  -s) echo "$USERS" | sort   && exit 0;;
+  -h) echo "$USAGE_MESSAGE" && exit 0 ;;
+  -v) echo "$VERSION" && exit 0       ;;
+  -s) SORT_OUT=1                      ;;
    *) echo "$USERS"                   ;;
 esac
+[ $SORT_OUT -eq 1 ] && echo "$USERS" | sort
 #
 ### END OF CODE ::::::::::::::::::::::::::::::::::::::::::::::::
 ################################################################
