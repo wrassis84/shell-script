@@ -29,6 +29,7 @@
 #      - Added -h option for help;
 #      - Added -v option for program version;
 #      - Added -s option for sort output;
+#      - Added -u option for uppercase output;
 #
 ################################################################
 ### TESTING ENVIRONMENT ::::::::::::::::::::::::::::::::::::::::
@@ -45,9 +46,11 @@ USAGE_MESSAGE="
    -h - Show this help.
    -v - Show program version.
    -s - Sort output alphabetically.
+   -u - Convert output to UPPERCASE.
 "
 VERSION="v1.1"
 SORT_OUT=0
+UPPERCASE=0
 #
 ################################################################
 ### TESTS/VALIDATIONS ::::::::::::::::::::::::::::::::::::::::::
@@ -59,9 +62,12 @@ case "$1" in
   -h) echo "$USAGE_MESSAGE" && exit 0 ;;
   -v) echo "$VERSION" && exit 0       ;;
   -s) SORT_OUT=1                      ;;
+  -u) UPPERCASE=1                     ;;
    *) echo "$USERS"                   ;;
 esac
-[ $SORT_OUT -eq 1 ] && echo "$USERS" | sort
+
+[ $SORT_OUT -eq 1  ] && echo "$USERS" | sort
+[ $UPPERCASE -eq 1 ] && echo "$USERS" | tr [a-z] [A-Z]
 #
 ### END OF CODE ::::::::::::::::::::::::::::::::::::::::::::::::
 ################################################################
