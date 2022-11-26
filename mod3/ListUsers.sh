@@ -57,6 +57,10 @@ if [ "$1" = "-v" ]; then
   echo "$VERSION"       && exit 0
 fi
 
+if [ "$1" = "-s" ]; then
+  echo "$USERS" | sort  && exit 0
+fi
+
 echo "$USERS"
 #
 ### END OF CODE ::::::::::::::::::::::::::::::::::::::::::::::::
