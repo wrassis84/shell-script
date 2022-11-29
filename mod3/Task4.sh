@@ -23,16 +23,7 @@
 ################################################################
 ### CHANGELOG ::::::::::::::::::::::::::::::::::::::::::::::::::
 #
-# v1.3 26/11/2022, William Ramos de Assis Rezende:
-#      - Added WHILE statement plus SHIFT and input validation;
-#      - Added suport for using 2 options at sametime;
-# v1.2 26/11/2022, William Ramos de Assis Rezende:
-#      - Added -s option for sort output;
-#      - Added -u option for uppercase output;
-# v1.1 26/11/2022, William Ramos de Assis Rezende:
-#      - Changed IF for CASE statement;
-#      - Added "basename" statement;
-# v1.0 25/11/2022, William Ramos de Assis Rezende:
+# v1.0 28/11/2022, William Ramos de Assis Rezende:
 #      - Program's first version;
 #      - Added -h and -v options;
 #
@@ -44,18 +35,19 @@
 ################################################################
 ### VARIABLES DEFINITIONS ::::::::::::::::::::::::::::::::::::::
 #
-USERS="$(cat /etc/passwd | cut -d : -f 1)"
-USAGE_MESSAGE="
-  $(basename $0)
-  [OPTIONS]:
-   -h - Show this help.
-   -v - Show program version.
-   -s - Sort output alphabetically.
-   -u - Convert output to UPPERCASE.
+VERSION="v1.0"
+INFO="HOSTNAME: $(hostname)
+      USER: $(whoami)
+      LOGGED USERS: $(who)
+      UPTIME: $(uptime -p)
+      DATE: $(date '%dd-%mm-%Y')
+      KERNEL: $(uname -r)
 "
-VERSION="v1.3"
-SORT_OUT=0
-UPPERCASE=0
+LOAD=
+UPDATES=
+SYSBINFO=0
+SYSLOAD=0
+SYSUPDT=0
 #
 ################################################################
 ### TESTS/VALIDATIONS ::::::::::::::::::::::::::::::::::::::::::
@@ -63,22 +55,36 @@ UPPERCASE=0
 ################################################################
 ### BEGIN OF CODE ::::::::::::::::::::::::::::::::::::::::::::::
 #
-while test -n "$1"
+clear
+while true
 do
-  case "$1" in
-    -h) echo "$USAGE_MESSAGE" && exit 0     ;;
-    -v) echo "$VERSION" && exit 0           ;;
-    -s) SORT_OUT=1                          ;;
-    -u) UPPERCASE=1                         ;;
-     *) echo "Invalid Option! :(" && exit 1 ;;
+  clear
+  echo    "::::::::::::::::::::::::::::::::::::::::::::::::::::"
+  echo -e "\tBe Welcome, User: $USER!"
+  echo    "::::::::::::::::::::::::::::::::::::::::::::::::::::"
+  echo    "Choose an Option, Please!
+  
+           1 - Shows Basic System Informations.
+           2 - Shows System Load.
+           3 - Shows System's Updates Available.
+  "
+  echo -e -n "Choosen Option: "
+  read OPT
+
+  case "$OPT" in
+    1) echo "$INFO"    && echo "Press [ENTER] to continue: " && read;;
+    2) echo "$LOAD"    && echo "Press [ENTER] to continue: " && read;;
+    3) echo "$UPDATES" && echo "Press [ENTER] to continue: " && read;;
+    *) echo "Invalid Option!    Press [ENTER] to continue: " && read;;
   esac
-  shift
+
 done
 
-[ $SORT_OUT -eq 1  ] && USERS=$(echo "$USERS" | sort)
-[ $UPPERCASE -eq 1 ] && USERS=$(echo "$USERS" | tr [a-z] [A-Z])
+[ $SYSBINFO -eq 1 ] && echo "$INFO"
+[ $SYSLOAD  -eq 1 ] && echo "$LOAD"
+[ $SYSUPDT  -eq 1 ] && echo "$UPDATES"
 
-echo "$USERS"
+#echo "$USERS"
 #
 ### END OF CODE ::::::::::::::::::::::::::::::::::::::::::::::::
 ################################################################
