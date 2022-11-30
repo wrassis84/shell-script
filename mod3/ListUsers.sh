@@ -77,6 +77,7 @@ done
 
 [ $SORT_OUT -eq 1  ] && USERS=$(echo "$USERS" | sort)
 [ $UPPERCASE -eq 1 ] && USERS=$(echo "$USERS" | tr [a-z] [A-Z])
+# TODO: Add code for sort and uppercase the output!
 
 echo "$USERS"
 #
