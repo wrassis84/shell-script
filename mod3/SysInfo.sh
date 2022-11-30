@@ -21,11 +21,16 @@
 ################################################################
 ### CHANGELOG ::::::::::::::::::::::::::::::::::::::::::::::::::
 #
+# v1.2 30/11/2022, William Ramos de Assis Rezende:
+#  - Changed "4" option for showing version kernel's release.
+#  - Added "5" option for updating system's package list.
+#  - Added "6" option for updating system's packages.
+#  - Added "7" option for show Program's version;
 # v1.1 29/11/2022, William Ramos de Assis Rezende:
-#      - Added option "4" for show Program's version;
-#      - Added option "0" for EXIT Program;
+#  - Added "4" option for show program's version;
+#  - Added "0" option for EXIT program;
 # v1.0 29/11/2022, William Ramos de Assis Rezende:
-#      - Program's first version showing basic infos of system;
+#  - Program's first version showing basic infos of system;
 #
 ################################################################
 ### TESTING ENVIRONMENT ::::::::::::::::::::::::::::::::::::::::
@@ -40,7 +45,7 @@ LUSERS="ALL LOGGED USERS:
 $(who)"
 UPTIME="UPTIME: $(uptime -p)"
 K_VERSION="KERNEL RELEASE: $(uname -r)"
-VERSION="v1.1"
+VERSION="v1.3"
 #
 ################################################################
 ### TESTS/VALIDATIONS ::::::::::::::::::::::::::::::::::::::::::
@@ -62,7 +67,9 @@ do
            4 - Shows Kernel Release.
            5 - Updates System's Package List.
            6 - Updates System's Packages.
-           7 - Shows Program's Version.
+           7 - Clean Local Cache's Packages.
+           8 - Removes Unused Packages.
+           9 - Shows Program's Version.
            0 - Exit Program.
   "
   echo -e -n "Option: "
@@ -79,7 +86,14 @@ do
     6) sudo apt-get -qq upgrade &>/dev/null && \
                             echo -e -n "System's Packages Updated!" && \
                             echo -e -n "\n[ENTER] to continue: " && read;;
-    7) echo "$VERSION"   && echo -e -n   "[ENTER] to continue: " && read;;
+    7) sudo apt-get -qq clean &>/dev/null && \
+       sudo apt-get -qq autoclean &>/dev/null && \
+                            echo -e -n "Local Cache Cleaned!" && \
+                            echo -e -n "\n[ENTER] to continue: " && read;;
+    8) sudo apt-get -qq autoremove &>/dev/null && \
+                            echo -e -n "Unused Packages Removed!" && \
+                            echo -e -n "\n[ENTER] to continue: " && read;;
+    9) echo "$VERSION"   && echo -e -n   "[ENTER] to continue: " && read;;
     0)                      echo -e -n "Exiting!" && sleep 1 && clear && exit 0;;
     *)    echo -e -n "Invalid Option!   \n[ENTER] to continue: " && read;;
   esac
