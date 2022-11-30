@@ -35,13 +35,12 @@
 ################################################################
 ### VARIABLES DEFINITIONS ::::::::::::::::::::::::::::::::::::::
 #
+INFO="HOSTNAME: $(hostname)"
+LUSERS="ALL LOGGED USERS:
+$(who)"
+UPTIME="UPTIME: $(uptime -p)"
+K_VERSION="KERNEL RELEASE: $(uname -r)"
 VERSION="v1.1"
-INFO="HOSTNAME: $(hostname)
-USER: $(whoami)
-LOGGED USERS: $(who)
-UPTIME: $(uptime -p)
-DATE: $(date)
-KERNEL: $(uname -r)"
 #
 ################################################################
 ### TESTS/VALIDATIONS ::::::::::::::::::::::::::::::::::::::::::
@@ -57,23 +56,32 @@ do
   echo -e "\tBe Welcome, User $USER!"
   echo    "::::::::::::::::::::::::::::::::::::::::::::::::::::"
   echo    "Choose an Option, Please!
-           1 - Shows Basic System Informations.
-           2 - Shows System Load.
-           3 - Shows System's Updates Available.
-           4 - Shows Program's Version.
+           1 - Shows Hostname.
+           2 - Shows All Logged Users.
+           3 - Shows System Uptime.
+           4 - Shows Kernel Release.
+           5 - Updates System's Package List.
+           6 - Updates System's Packages.
+           7 - Shows Program's Version.
            0 - Exit Program.
   "
- #echo -e -n "Choosen Option: "
   echo -e -n "Option: "
   read OPT
 
   case "$OPT" in
-    1) echo "$INFO"    && echo -e -n "\nPress [ENTER] to continue: " && read;;
-    2) echo "$LOAD"    && echo -e -n "\nPress [ENTER] to continue: " && read;;
-    3) echo "$UPDATES" && echo -e -n "\nPress [ENTER] to continue: " && read;;
-    4) echo "$VERSION" && echo -e -n "\nPress [ENTER] to continue: " && read;;
-    0)                   echo -e -n "Exiting!" && sleep 2 && clear && exit 0;;
-    *) echo -e -n "Invalid Option!    \nPress [ENTER] to continue: " && read;;
+    1) echo -e -n "$INFO"      && echo -e -n "\n[ENTER] to continue: " && read;;
+    2) echo -e -n "$LUSERS"    && echo -e -n "\n[ENTER] to continue: " && read;;
+    3) echo -e -n "$UPTIME"    && echo -e -n "\n[ENTER] to continue: " && read;;
+    4) echo -e -n "$K_VERSION" && echo -e -n "\n[ENTER] to continue: " && read;;
+    5) sudo apt-get -qq update &>/dev/null || \
+                            echo -e -n "System's Package List Updated!" && \
+                            echo -e -n "\n[ENTER] to continue: "  && read;;
+    6) sudo apt-get -qq upgrade &>/dev/null && \
+                            echo -e -n "System's Packages Updated!" && \
+                            echo -e -n "\n[ENTER] to continue: " && read;;
+    7) echo "$VERSION"   && echo -e -n   "[ENTER] to continue: " && read;;
+    0)                      echo -e -n "Exiting!" && sleep 1 && clear && exit 0;;
+    *)    echo -e -n "Invalid Option!   \n[ENTER] to continue: " && read;;
   esac
 done
 #
