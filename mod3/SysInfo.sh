@@ -12,7 +12,8 @@
 ################################################################
 ### DESCRIPTION ::::::::::::::::::::::::::::::::::::::::::::::::
 #
-# This program will show informations about system.
+# This program will show informations about system and perform
+# administrative tasks like updating the system.
 #
 # Usage:
 # ./SysInfo.sh
@@ -21,14 +22,18 @@
 ################################################################
 ### CHANGELOG ::::::::::::::::::::::::::::::::::::::::::::::::::
 #
+# v1.3 30/11/2022, William Ramos de Assis Rezende:
+#  - Changed "7" option for cleaning local's cache packages.
+#  - Added "8" option for cleaning unused packages.
+#  - Added "9" option for showing program's version.
 # v1.2 30/11/2022, William Ramos de Assis Rezende:
 #  - Changed "4" option for showing version kernel's release.
 #  - Added "5" option for updating system's package list.
 #  - Added "6" option for updating system's packages.
-#  - Added "7" option for show Program's version;
+#  - Added "7" option for showing program's version;
 # v1.1 29/11/2022, William Ramos de Assis Rezende:
-#  - Added "4" option for show program's version;
-#  - Added "0" option for EXIT program;
+#  - Added "4" option for showing program's version;
+#  - Added "0" option for exiting program;
 # v1.0 29/11/2022, William Ramos de Assis Rezende:
 #  - Program's first version showing basic infos of system;
 #
@@ -45,7 +50,7 @@ LUSERS="ALL LOGGED USERS:
 $(who)"
 UPTIME="UPTIME: $(uptime -p)"
 K_VERSION="KERNEL RELEASE: $(uname -r)"
-VERSION="v1.3"
+VERSION="VERSION: v1.3"
 #
 ################################################################
 ### TESTS/VALIDATIONS ::::::::::::::::::::::::::::::::::::::::::
@@ -70,8 +75,7 @@ do
            7 - Clean Local Cache's Packages.
            8 - Removes Unused Packages.
            9 - Shows Program's Version.
-           0 - Exit Program.
-  "
+           0 - Exit Program."
   echo -e -n "Option: "
   read OPT
 
