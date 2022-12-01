@@ -16,9 +16,9 @@
 # manipulated of many ways.
 #
 # Usage:
-# ./ListUsers.sh
-# In this example, we will have all system users in the order
-# they appear in the "/etc/passwd" file.
+# ./ListUsers.sh -s -u
+# In this example, we will have all users sorted alphabetically
+# and in capital letters.
 #
 ################################################################
 ### CHANGELOG ::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -46,12 +46,14 @@
 #
 USERS="$(cat /etc/passwd | cut -d : -f 1)"
 USAGE_MESSAGE="
-  $(basename $0)
+  Help Menu for $(basename $0) Program:
   [OPTIONS]:
    -h - Show this help.
    -v - Show program version.
    -s - Sort output alphabetically.
    -u - Convert output to UPPERCASE.
+   NOTE: When using two options we must place them like this:
+         ./ListUsers.sh -s -u
 "
 VERSION="v1.3"
 SORT_OUT=0
@@ -70,14 +72,15 @@ do
     -v) echo "$VERSION" && exit 0           ;;
     -s) SORT_OUT=1                          ;;
     -u) UPPERCASE=1                         ;;
-     *) echo "Invalid Option! :(" && exit 1 ;;
+     *) echo -en "Invalid Option!\n " && echo -en "$USAGE_MESSAGE" \
+        && echo -en "\n[ENTER] to continue: " && read \
+        && clear && exit 0;;
   esac
   shift
 done
 
-[ $SORT_OUT -eq 1  ] && USERS=$(echo "$USERS" | sort)
+[ $SORT_OUT -eq 1 ]  && USERS=$(echo "$USERS" | sort)
 [ $UPPERCASE -eq 1 ] && USERS=$(echo "$USERS" | tr [a-z] [A-Z])
-# TODO: Add code for sort and uppercase the output!
 
 echo "$USERS"
 #
