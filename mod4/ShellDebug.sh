@@ -3,7 +3,7 @@
 ################################################################
 ### ABOUT ::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
-# ListUsers.sh - List system users using "etc/passwd" file.
+# ShellDebug.sh - This program tests debugging levels.
 #
 # Site      : https://github.com/wrassis84/shell-script
 # Author    : William Ramos de Assis Rezende
@@ -16,25 +16,14 @@
 # manipulated of many ways.
 #
 # Usage:
-# ./ListUsers.sh -s -u
-# In this example, we will have all users sorted alphabetically
-# and in capital letters.
+# ./ListUsers.sh -d 1
+# In this example, we will run the program in debug level 1.
 #
 ################################################################
 ### CHANGELOG ::::::::::::::::::::::::::::::::::::::::::::::::::
 #
-# v1.3 26/11/2022, William Ramos de Assis Rezende:
-#      - Added WHILE statement plus SHIFT and input validation;
-#      - Added suport for using 2 options at sametime;
-# v1.2 26/11/2022, William Ramos de Assis Rezende:
-#      - Added -s option for sort output;
-#      - Added -u option for uppercase output;
-# v1.1 26/11/2022, William Ramos de Assis Rezende:
-#      - Changed IF for CASE statement;
-#      - Added "basename" statement;
-# v1.0 25/11/2022, William Ramos de Assis Rezende:
-#      - Program's first version;
-#      - Added -h and -v options;
+# v1.0 05/12/2022, William Ramos de Assis Rezende:
+#   - Program's first version;
 #
 ################################################################
 ### TESTING ENVIRONMENT ::::::::::::::::::::::::::::::::::::::::
