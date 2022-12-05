@@ -79,8 +79,10 @@ do
   shift
 done
 
+set -xv # Turn On code debugging
 [ $SORT_OUT -eq 1 ]  && USERS=$(echo "$USERS" | sort)
 [ $UPPERCASE -eq 1 ] && USERS=$(echo "$USERS" | tr [a-z] [A-Z])
+set +xv # Turn Off code debugging
 
 echo "$USERS"
 #
