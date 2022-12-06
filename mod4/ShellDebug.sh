@@ -24,6 +24,7 @@
 #
 # v1.0 05/12/2022, William Ramos de Assis Rezende:
 #   - Program's first version;
+#   - Added "-d" option for debug level;
 #
 ################################################################################
 ### TESTING ENVIRONMENT ::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -33,7 +34,8 @@
 ################################################################################
 ### VARIABLE DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
-USERS="$(cat /etc/passwd | cut -d : -f 1)"
+DEBUG=0
+DEBUG_LEVEL=0
 USAGE_MESSAGE="
   Help Menu for $(basename $0) Program:
   [OPTIONS]:
@@ -41,42 +43,38 @@ USAGE_MESSAGE="
    -v - Show program version.
    -s - Sort output alphabetically.
    -u - Convert output to UPPERCASE.
-   NOTE: When using two options we must place them like this:
-         ./ListUsers.sh -s -u
 "
-VERSION="v1.3"
-SORT_OUT=0
-UPPERCASE=0
+VERSION="v1.0"
 #
 ################################################################################
 ### FUNCTION DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
+debug_func() {
+  [ $1 -le $DEBUG_LEVEL ] && echo "Debug $* -----"
+}
+
+sum_func() {
+  local total=0
+
+  for i in $(seq 1 25)
+  do
+    debug_func 1 "Entering FOR with value: $i" # Debug level 1
+    total=$(($total+$i))
+    debug_func 2 "After sum: $total"           # Debug level 2
+  done
+  echo $total
+}
 ################################################################################
 ### TESTS/VALIDATIONS ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
 ################################################################################
 ### BEGIN OF CODE ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
-while test -n "$1"
-do
-  case "$1" in
-    -h) echo "$USAGE_MESSAGE" && exit 0     ;;
-    -v) echo "$VERSION" && exit 0           ;;
-    -s) SORT_OUT=1                          ;;
-    -u) UPPERCASE=1                         ;;
-     *) echo -en "Invalid Option!\n " && echo -en "$USAGE_MESSAGE" \
-        && echo -en "\n[ENTER] to continue: " && read \
-        && clear && exit 0;;
-  esac
-  shift
-done
-
-set -xv # Turn On code debugging
-[ $SORT_OUT -eq 1 ]  && USERS=$(echo "$USERS" | sort)
-[ $UPPERCASE -eq 1 ] && USERS=$(echo "$USERS" | tr [a-z] [A-Z])
-set +xv # Turn Off code debugging
-
-echo "$USERS"
+case "$1" in
+    -d) [ $2 ] && DEBUG_LEVEL="$2" ;;
+    -v) echo "$VERSION" && exit 0  ;;
+     *) sum_func                   ;;
+esac
 #
 ### END OF CODE ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ################################################################################
