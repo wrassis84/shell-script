@@ -37,14 +37,23 @@
 #
 DEBUG_LEVEL=${1:-0}     # The debug level will passed by "$1": ./CatDebug.sh 1
 INI=0
-MAX=5
+MAX=10
 VERSION="v1.0"
 #
 ################################################################################
 ### FUNCTION DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
 debug_func() {
-  [ $1 -le $DEBUG_LEVEL ] && echo "--- DEBUG $*"
+  [ $1 -le $DEBUG_LEVEL ] || return 
+  local prefix
+  case "$1" in
+  1) prefix=">--{ ";;
+  2) prefix=">----{ ";;
+  3) prefix=">------{ ";;
+  *) echo "Uncategorized Message!: $*"; return;;
+  esac
+  shift
+  echo $prefix$*
 }
 #
 ################################################################################
