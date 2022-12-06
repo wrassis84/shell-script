@@ -22,6 +22,10 @@
 ################################################################################
 ### CHANGELOG ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
+# v1.1 06/12/2022, William Ramos de Assis Rezende:
+#   - Program's first version;
+#   - Added "-v" option for program's version;
+#   - Added "-h" option for program's help;
 # v1.0 05/12/2022, William Ramos de Assis Rezende:
 #   - Program's first version;
 #   - Added "-d" option for debug level;
@@ -46,7 +50,7 @@ USAGE_MESSAGE="
    ./ShellDebug.sh -d 1
    ./ShellDebug.sh -d 2
 "
-VERSION="v1.0"
+VERSION="v1.1"
 #
 ################################################################################
 ### FUNCTION DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
