@@ -17,6 +17,8 @@
 # Usage:
 # ./CatDebug.sh 1
 # In this example, we will run the program in debug level 1.
+# We can chose from  "1" to "3" levels:
+# ./CatDebug.sh 1 OR ./CatDebug.sh 2 OR ./CatDebug.sh 3
 #
 ################################################################################
 ### CHANGELOG ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -36,15 +38,6 @@
 DEBUG_LEVEL=${1:-0}     # The debug level will passed by "$1": ./CatDebug.sh 1
 INI=0
 MAX=5
-USAGE_MESSAGE="
-  Help Menu for $(basename $0) Program:
-  [OPTIONS]:
-   -h   - Show this help.
-   -v   - Show program version.
-   -[N] - Choose debug level. We can chose from  "1" to "3" levels.
-   NOTE: Debug level must be like this:
-   ./CatDebug.sh 1 OR ./CatDebug.sh 2 OR ./CatDebug.sh 3
-"
 VERSION="v1.0"
 #
 ################################################################################
