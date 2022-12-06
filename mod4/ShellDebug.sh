@@ -41,8 +41,10 @@ USAGE_MESSAGE="
   [OPTIONS]:
    -h - Show this help.
    -v - Show program version.
-   -s - Sort output alphabetically.
-   -u - Convert output to UPPERCASE.
+   -d - Choose debug level. We have "1" and "2" levels.
+   NOTE: Debug level must be like this:
+   ./ShellDebug.sh -d 1
+   ./ShellDebug.sh -d 2
 "
 VERSION="v1.0"
 #
@@ -56,13 +58,14 @@ debug_func() {
 sum_func() {
   local total=0
 
-  for i in $(seq 1 25)
-  do
-    debug_func 1 "Entering FOR with value: $i" # Debug level 1
+  for i in $(seq 1 25); do
+    # Debug level 1
+    debug_func 1 "Entering FOR with value: $i" 
     total=$(($total+$i))
-    debug_func 2 "After sum: $total"           # Debug level 2
+    # Debug level 2
+    debug_func 2 "After sum: $total"
   done
-  echo $total
+  #echo $total
 }
 ################################################################################
 ### TESTS/VALIDATIONS ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -71,10 +74,13 @@ sum_func() {
 ### BEGIN OF CODE ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
 case "$1" in
-    -d) [ $2 ] && DEBUG_LEVEL="$2" ;;
-    -v) echo "$VERSION" && exit 0  ;;
-     *) sum_func                   ;;
+    -d) [ $2 ] && DEBUG_LEVEL=$2  ;;
+    -v) echo "$VERSION" && exit 0 ;;
+    -h) echo "$USAGE_MESSAGE"     ;;
+     *) sum_func                  ;;
 esac
+
+sum_func
 #
 ### END OF CODE ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ################################################################################
