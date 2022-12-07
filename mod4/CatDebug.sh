@@ -23,6 +23,8 @@
 ################################################################################
 ### CHANGELOG ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
+# v1.1 07/12/2022, William Ramos de Assis Rezende:
+#   - Added color on debug messages;
 # v1.0 06/12/2022, William Ramos de Assis Rezende:
 #   - Program's first version;
 #   - Added "-d" option for debug level;
@@ -38,7 +40,7 @@
 DEBUG_LEVEL=${1:-0}     # The debug level will passed by "$1": ./CatDebug.sh 1
 INI=0
 MAX=10
-VERSION="v1.0"
+VERSION="v1.1"
 #
 ################################################################################
 ### FUNCTION DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
