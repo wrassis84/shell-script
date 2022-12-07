@@ -23,6 +23,8 @@
 ################################################################################
 ### CHANGELOG ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
+# v1.2 07/12/2022, William Ramos de Assis Rezende:
+#   - Added colors on debug messages according to debug level;;
 # v1.1 07/12/2022, William Ramos de Assis Rezende:
 #   - Added color on debug messages;
 # v1.0 06/12/2022, William Ramos de Assis Rezende:
@@ -40,22 +42,25 @@
 DEBUG_LEVEL=${1:-0}     # The debug level will passed by "$1": ./CatDebug.sh 1
 INI=0
 MAX=10
-VERSION="v1.1"
+GREEN="\033[32;1m"
+YELLOW="\033[33;1m"
+RED="\033[31;1m"
+ESC="\033[m"
+VERSION="v1.2"
 #
 ################################################################################
 ### FUNCTION DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
 debug_func() {
   [ $1 -le $DEBUG_LEVEL ] || return 
-  local prefix
+  local pref suf
   case "$1" in
-  1) prefix="1-| "   && sufix=" |" ;;
-  2) prefix="2--| "  && sufix=" |" ;;
-  3) prefix="3---| " && sufix=" |" ;;
-  *) echo "Uncategorized Message!: $*"; return;;
+    1) pref="| " && suf=" |" && echo -e  "${GREEN}$pref$*$suf${ESC}";; 
+    2) pref="| " && suf=" |" && echo -e "${YELLOW}$pref$*$suf${ESC}";;
+    3) pref="| " && suf=" |" && echo -e    "${RED}$pref$*$suf${ESC}";;
+    *)                          echo      "Uncategorized Message!: $*";return;;
   esac
-  shift
-  echo -e "\033[33;1m$prefix$*$sufix\033[m"
+  #shift
 }
 #
 ################################################################################
@@ -64,7 +69,7 @@ debug_func() {
 ################################################################################
 ### BEGIN OF CODE ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
-debug_func 1 "Program's beginning!"
+debug_func 1 "Program start!"
 
 echo "Counting until $MAX"
 
@@ -72,13 +77,13 @@ debug_func 2 "Entering WHILE statement!"
 
 while [ $INI -ne $MAX ]; do
 
-  debug_func 3 "\$INI value before incrementing: $INI"
+  debug_func 3 "\$INI's value before incrementing: $INI"
 
   let INI=$INI+1
   
-  debug_func 3 "\$INI value after  incrementing: $INI"
+  debug_func 3 "\$INI's value after  incrementing: $INI"
   
-  echo "$INI..."
+  echo "--$INI..."
 
 done
 

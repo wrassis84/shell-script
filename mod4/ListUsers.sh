@@ -42,7 +42,7 @@
 # zsh 5.8.1
 #
 ###############################################################################
-### VARIABLES DEFINITIONS :::::::::::::::::::::::::::::::::::::::::::::::::::::
+### VARIABLE DECLARATION ::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
 USERS="$(cat /etc/passwd | cut -d : -f 1)"
 USAGE_MESSAGE="
@@ -58,6 +58,21 @@ USAGE_MESSAGE="
 VERSION="v1.3"
 SORT_OUT=0
 UPPERCASE=0
+#
+################################################################################
+### FUNCTION DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
+#
+debug_func() {
+  [ $1 -le $DEBUG_LEVEL ] || return
+  local pref suf
+  case "$1" in
+    1) pref="| " && suf=" |" && echo -e  "${GREEN}$pref$*$suf${ESC}";;
+    2) pref="| " && suf=" |" && echo -e "${YELLOW}$pref$*$suf${ESC}";;
+    3) pref="| " && suf=" |" && echo -e    "${RED}$pref$*$suf${ESC}";;
+    *)                          echo      "Uncategorized Message!: $*";return;;
+  esac
+  #shift
+}
 #
 ###############################################################################
 ### TESTS/VALIDATIONS :::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -79,10 +94,12 @@ do
   shift
 done
 
-set -xv # Turn On code debugging
+#set -xv # Uncomment for turn on code debugging :)
+
 [ $SORT_OUT -eq 1 ]  && USERS=$(echo "$USERS" | sort)
 [ $UPPERCASE -eq 1 ] && USERS=$(echo "$USERS" | tr [a-z] [A-Z])
-set +xv # Turn Off code debugging
+
+#set +xv # Uncomment for turn off code debugging :(
 
 echo "$USERS"
 #
