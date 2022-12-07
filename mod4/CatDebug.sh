@@ -47,13 +47,13 @@ debug_func() {
   [ $1 -le $DEBUG_LEVEL ] || return 
   local prefix
   case "$1" in
-  1) prefix=">--{ ";;
-  2) prefix=">----{ ";;
-  3) prefix=">------{ ";;
+  1) prefix="1-| "   && sufix=" |" ;;
+  2) prefix="2--| "  && sufix=" |" ;;
+  3) prefix="3---| " && sufix=" |" ;;
   *) echo "Uncategorized Message!: $*"; return;;
   esac
   shift
-  echo $prefix$*
+  echo -e "\033[33;1m$prefix$*$sufix\033[m"
 }
 #
 ################################################################################
