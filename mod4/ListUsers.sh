@@ -16,7 +16,7 @@
 # manipulated of many ways.
 #
 # Usage:
-# ./ListUsers.sh -s -u
+# ./ListUsers.sh -s -u 1
 # In this example, we will have all users sorted alphabetically
 # and in capital letters.
 #
@@ -54,11 +54,16 @@ USAGE_MESSAGE="
    -v - Show program version.
    -s - Sort output alphabetically.
    -u - Convert output to UPPERCASE.
+    1 - Show debug message at level 1.
+    2 - Show debug message at level 2.
+    3 - Show debug message at level 3.
    NOTE: When using two options we must place them like this:
-         ./ListUsers.sh -s -u
+         ./ListUsers.sh -s -u 2
 "
 SORT_OUT=0
 UPPERCASE=0
+# The debug level will passed by "$3": ./ListUsers.sh -s -u 2
+DEBUG_LEVEL=${3:-0}
 # Colors for debug messages according level:
 GREEN="\033[32;1m"
 YELLOW="\033[33;1m"
@@ -82,7 +87,7 @@ VERSION="v1.3"
 debug_func() {
   [ $1 -le $DEBUG_LEVEL ] || return
   local pref suf
-  case "$1" in
+  case "$3" in
     1) pref="| " && suf=" |" && echo -e  "${GREEN}$pref$*$suf${ESC}";;
     2) pref="| " && suf=" |" && echo -e "${YELLOW}$pref$*$suf${ESC}";;
     3) pref="| " && suf=" |" && echo -e    "${RED}$pref$*$suf${ESC}";;
@@ -99,16 +104,14 @@ debug_func() {
 #
 debug_func 1 "Program start!"
 debug_func 2 "Entering WHILE!"
+debug_func 3 "\$SORT_OUT's value before choosing: $SORT_OUT"
+debug_func 3 "\$UPPERCASE's value before choosing: $UPPERCASE"
 while test -n "$1"; do
   case "$1" in
     -h) echo "$USAGE_MESSAGE" && exit 0     ;;
     -v) echo "$VERSION" && exit 0           ;;
-    debug_func 3 "\$SORT_OUT's value before choosing: $SORT_OUT"
     -s) SORT_OUT=1                          ;;
-    debug_func 3 "\$SORT_OUT's value after choosing: $SORT_OUT"
-    debug_func 3 "\$UPPERCASE's value before choosing: $UPPERCASE"
     -u) UPPERCASE=1                         ;;
-    debug_func 3 "\$UPPERCASE's value after choosing: $UPPERCASE"
      *) echo -en "Invalid Option!\n " && echo -en "$USAGE_MESSAGE" \
         && echo -en "\n[ENTER] to continue: " && read \
         && clear && exit 0;;
@@ -119,7 +122,9 @@ debug_func 2 "Leaving WHILE!"
 #set -xv # Uncomment for turn on code debugging :)
 
 [ $SORT_OUT -eq 1 ]  && USERS=$(echo "$USERS" | sort)
+debug_func 3 "\$SORT_OUT's value after choosing: $SORT_OUT"
 [ $UPPERCASE -eq 1 ] && USERS=$(echo "$USERS" | tr [a-z] [A-Z])
+debug_func 3 "\$UPPERCASE's value after choosing: $UPPERCASE"
 
 #set +xv # Uncomment for turn off code debugging :(
 
