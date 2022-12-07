@@ -22,13 +22,16 @@
 ################################################################################
 ### CHANGELOG ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
+# v1.2 07/12/2022, William Ramos de Assis Rezende:
+#  - Added custom debug function that shows debug messages colored according
+#    to chosen debug level.
 # v1.1 06/12/2022, William Ramos de Assis Rezende:
-#   - Program's first version;
-#   - Added "-v" option for program's version;
-#   - Added "-h" option for program's help;
+#  - Program's first version;
+#  - Added "-v" option for program's version;
+#  - Added "-h" option for program's help;
 # v1.0 05/12/2022, William Ramos de Assis Rezende:
-#   - Program's first version;
-#   - Added "-d" option for debug level;
+#  - Program's first version;
+#  - Added "-d" option for debug level;
 #
 ################################################################################
 ### TESTING ENVIRONMENT ::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -50,13 +53,31 @@ USAGE_MESSAGE="
    ./ShellDebug.sh -d 1
    ./ShellDebug.sh -d 2
 "
-VERSION="v1.1"
+# The debug level will passed by "$1": ./Colors.sh -d 1
+DEBUG_LEVEL=${1:-0}
+# Colors for debug messages according level:
+GREEN="\033[32;1m"  # Level 1
+YELLOW="\033[33;1m" # Level 2
+RED="\033[31;1m"    # Level 3
+PURPLE="\033[35;1m"
+CIAN="\033[36;1m"
+
+VERSION="v1.2"
 #
 ################################################################################
 ### FUNCTION DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
+#   The "debug_func" function below displays debug messages according to desired
+#   debug level.
+#   To use it, just place it on the desired line with the debug level as an
+#   argument and the "DEBUG MESSAGE" between double quotes. We can use the
+#   following levels:
+#   1 - generic messages          (location, eg: START/END of the program);
+#   2 - flow location messages    (eg entering/leaving WHILE);
+#   3 - content of important vars (e.g. $VAR's value before/after incrementing)
+#
 debug_func() {
-  [ $1 -le $DEBUG_LEVEL ] && echo "Debug $* -----"
+    [ $1 -le $DEBUG_LEVEL ] && echo -e "${2}Debug $* -----"
 }
 
 sum_func() {
@@ -64,10 +85,10 @@ sum_func() {
 
   for i in $(seq 1 25); do
     # Debug level 1
-    debug_func 1 "Entering FOR with value: $i" 
+    debug_func 1 ${GREEN}  "Entering FOR with value: $i" 
     total=$(($total+$i))
     # Debug level 2
-    debug_func 2 "After sum: $total"
+    debug_func 2 ${YELLOW} "After sum: $total"
   done
   #echo $total
 }
