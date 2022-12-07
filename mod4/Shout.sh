@@ -40,6 +40,7 @@ WORD="gritaria"
 ### FUNCTION DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
 debug_func() {
+                              # Show debug messages in yellow color ;)
   [ "$DEBUG" = 1 ] && echo -e "\033[33;1m$*\033[m"
 }
 
