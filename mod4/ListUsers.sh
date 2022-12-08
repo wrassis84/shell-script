@@ -1,7 +1,9 @@
+################################################################################
+#
 #!/usr/bin/env bash
 #
-###############################################################################
-### ABOUT ::::::::::::::::::::::::::::::::::::::::::::::::::::::
+################################################################################
+### ABOUT ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
 # ListUsers.sh - List system users using "etc/passwd" file.
 #
@@ -9,8 +11,8 @@
 # Author    : William Ramos de Assis Rezende
 # Maintainer: William Ramos de Assis Rezende
 #
-###############################################################################
-### DESCRIPTION :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+################################################################################
+### DESCRIPTION ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
 # This program will list system users and output shall can be
 # manipulated of many ways.
@@ -20,8 +22,8 @@
 # In this example, we will have all users sorted alphabetically
 # and in capital letters.
 #
-###############################################################################
-### CHANGELOG :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+################################################################################
+### CHANGELOG ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 # v1.4 07/12/2022, William Ramos de Assis Rezende:
 #  - Added custom debug function that shows debug messages colored according
 #    to chosen debug level.
@@ -38,16 +40,16 @@
 #  - Program's first version;
 #  - Added -h and -v options;
 #
-###############################################################################
-### TESTING ENVIRONMENT :::::::::::::::::::::::::::::::::::::::::::::::::::::::
+################################################################################
+### TESTING ENVIRONMENT ::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
 # zsh 5.8.1
 #
-###############################################################################
-### VARIABLE DECLARATION ::::::::::::::::::::::::::::::::::::::::::::::::::::::
+################################################################################
+### VARIABLE DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
 USERS="$(cat /etc/passwd | cut -d : -f 1)"
-USAGE_MESSAGE="
+HELP_MSG="
   Help Menu for $(basename $0) Program:
   [OPTIONS]:
    -h - Show this help.
@@ -57,79 +59,82 @@ USAGE_MESSAGE="
     1 - Show debug message at level 1.
     2 - Show debug message at level 2.
     3 - Show debug message at level 3.
-   NOTE: When using two options we must place them like this:
+   NOTE: When using two options or plus we must place them like this:
          ./ListUsers.sh -s -u 2
 "
 SORT_OUT=0
 UPPERCASE=0
 # The debug level will passed by "$3": ./ListUsers.sh -s -u 2
 DEBUG_LEVEL=${3:-0}
-# Colors for debug messages according level:
-GREEN="\033[32;1m"
+# Colors for debug messages according level; ${GREEN} to use on code.
+GREEN="\033[32;1m" 
 YELLOW="\033[33;1m"
 RED="\033[31;1m"
 ESC="\033[m"
 
 VERSION="v1.3"
 #
-################################################################################
-### FUNCTION DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
+#################################################################################
+### FUNCTION DECLARATION ::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
-#   The "debug_func" function below displays debug messages according to desired
+#   The "#debug_func" function below displays debug messages according to desired
 #   debug level.
 #   To use it, just place it on the desired line with the debug level as an
 #   argument and the "DEBUG MESSAGE" between double quotes. We can use the
 #   following levels:
 #   1 - generic messages          (location, eg: START/END of the program);
 #   2 - flow location messages    (eg entering/leaving WHILE);
-#   3 - content of important vars (e.g. $VAR's value before/after incrementing)
+#   3 - content of important vars (e.g. $VAR's value before/after incrementing);
+#   4 - content of secondary variables;
 #
 debug_func() {
   [ $1 -le $DEBUG_LEVEL ] || return
-  local pref suf
-  case "$3" in
-    1) pref="| " && suf=" |" && echo -e  "${GREEN}$pref$*$suf${ESC}";;
-    2) pref="| " && suf=" |" && echo -e "${YELLOW}$pref$*$suf${ESC}";;
-    3) pref="| " && suf=" |" && echo -e    "${RED}$pref$*$suf${ESC}";;
-    *)                          echo       "Uncategorized Message!: $*";return;;
+  local pref="| "
+  local suf=" |"
+  case "$1" in
+    1) echo -e  "${GREEN}$pref$*$suf${ESC}"            ;;
+    2) echo -e "${YELLOW}$pref$*$suf${ESC}"            ;;
+    3) echo -e    "${RED}$pref$*$suf${ESC}"            ;;
+    *) echo       "Uncategorized Message!: $*"; return ;;
   esac
   #shift
 }
 #
-###############################################################################
-### TESTS/VALIDATIONS :::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+################################################################################
+### TESTS/VALIDATIONS ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
-###############################################################################
-### BEGIN OF CODE :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+################################################################################
+### BEGIN OF CODE ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
-debug_func 1 "Program start!"
-debug_func 2 "Entering WHILE!"
-debug_func 3 "\$SORT_OUT's value before choosing: $SORT_OUT"
-debug_func 3 "\$UPPERCASE's value before choosing: $UPPERCASE"
-while test -n "$1"; do
+#debug_func 1 "Program start!"
+#debug_func 3 "\$SORT_OUT's value before choosing: $SORT_OUT"
+#debug_func 3 "\$UPPERCASE's value before choosing: $UPPERCASE"
+#debug_func 2 "Entering WHILE!"
+while test -n "$1"; do # True if "$1" is not null
   case "$1" in
-    -h) echo "$USAGE_MESSAGE" && exit 0     ;;
-    -v) echo "$VERSION" && exit 0           ;;
-    -s) SORT_OUT=1                          ;;
-    -u) UPPERCASE=1                         ;;
-     *) echo -en "Invalid Option!\n " && echo -en "$USAGE_MESSAGE" \
-        && echo -en "\n[ENTER] to continue: " && read \
-        && clear && exit 0;;
+       -h) echo "$HELP_MSG" && exit 0 ;;
+       -v) echo "$VERSION" && exit 0       ;;
+       -s) SORT_OUT=1                      ;;
+       -u) UPPERCASE=1                     ;;
+    [1-3]) DEBUG_LEVEL=$1                  ;;
+        *) echo -n "Invalid Option!\n " && echo "${YELLOW}$HELP_MSG${ESC}" \
+        && echo -n "[ENTER] to continue:" && read REPLY                    \
+        && clear && exit 0                 ;;
   esac
   shift
 done
-debug_func 2 "Leaving WHILE!"
+#debug_func 2 "Leaving WHILE!"
 #set -xv # Uncomment for turn on code debugging :)
 
 [ $SORT_OUT -eq 1 ]  && USERS=$(echo "$USERS" | sort)
-debug_func 3 "\$SORT_OUT's value after choosing: $SORT_OUT"
+#debug_func 3 "\$SORT_OUT's value after choosing: $SORT_OUT"
 [ $UPPERCASE -eq 1 ] && USERS=$(echo "$USERS" | tr [a-z] [A-Z])
-debug_func 3 "\$UPPERCASE's value after choosing: $UPPERCASE"
+#debug_func 3 "\$UPPERCASE's value after choosing: $UPPERCASE"
 
 #set +xv # Uncomment for turn off code debugging :(
 
 echo "$USERS"
-debug_func 1 "End of program!"
+#debug_func 1 "End of program!"
 #
-### END OF CODE :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-###############################################################################
+### END OF CODE ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+################################################################################
