@@ -5,7 +5,7 @@
 ################################################################################
 ### ABOUT ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
-# ShellDebug.sh - This program tests debugging levels.
+# Color.sh - This program tests debugging levels.
 #
 # Site      : https://github.com/wrassis84/shell-script
 # Author    : William Ramos de Assis Rezende
@@ -14,11 +14,10 @@
 ################################################################################
 ### DESCRIPTION ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
-# This program will list system users and output shall can be
-# manipulated of many ways.
+# This program will show debug messages colored according debug level.
 #
 # Usage:
-# ./ShellDebug.sh -d 1
+# ./Color.sh -d 1
 # In this example, we will run the program in debug level 1.
 #
 ################################################################################
@@ -52,8 +51,8 @@ USAGE_MESSAGE="
    -v - Show program version.
    -d - Choose debug level. We have "1" and "2" levels.
    NOTE: Debug level must be like this:
-   ./ShellDebug.sh -d 1
-   ./ShellDebug.sh -d 2
+   ./Color.sh -d 1
+   ./Color.sh -d 2
 "
 # The debug level will passed by "$1": ./Colors.sh -d 1
 DEBUG_LEVEL=${1:-0}
