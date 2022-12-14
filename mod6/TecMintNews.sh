@@ -55,20 +55,22 @@ SRC_FILE="headlines.out"
 #[ ! -x "$(which lynx)" ] && echo "lynx isn't installed! Please, Install it!"
 [ ! -x "$(which lynx)" ] && sudo apt install -y lynx
 # Is sed installed?
-[ ! -x "$(which sed)" ]  && echo "sed isn't installed! Please, Install it!"
+#[ ! -x "$(which sed)" ]  && echo "sed isn't installed! Please, Install it!"
 #
 ################################################################################
 ### BEGIN OF CODE ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
 lynx -source "$URL" | \
     grep 'class="entry-title"' | \
-    sed 's/<h2 class.*bookmark">//;s/<\/a.*//' > "$TMP_FILE" #headlines.out
-cat -n "$TMP_FILE" > "$SRC_FILE" && rm "$TMP_FILE"
+    sed 's/<h2 class.*bookmark">//;s/<\/a.*//' > "$TMP_FILE"
+cat "$TMP_FILE" > "$SRC_FILE" && rm "$TMP_FILE"
 
-#while read -r headlines
-#do
-#    echo "${GREEN} Title: ${CIAN}$headlines${ESC}"
-#done < "$SRC_FILE"
+while read -r headlines
+do
+    echo "${GREEN} Title: ${CIAN}$headlines${ESC}"
+done < "$SRC_FILE"
 #
 ### END OF CODE ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ################################################################################
+# FIXME: Handle HTML special characteres like "&#8217;";
+# TODO: Add option to number output lines;
