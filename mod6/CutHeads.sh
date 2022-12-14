@@ -54,9 +54,9 @@ RED="\033[31;1m"    # Level 3
 PURPLE="\033[35;1m"
 CIAN="\033[36;1m"
 
-VERSION="v1.1"
+VERSION="v1.0"
 URL="http://lxer.com/" # Press CTRL+u in browser to view website source code ;)
-SRC_FILE="./headlines.out"
+SRC_FILE="headlines.out"
 #
 ################################################################################
 ### FUNCTION DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -70,9 +70,10 @@ SRC_FILE="./headlines.out"
 #   2 - flow location messages    (eg entering/leaving WHILE);
 #   3 - content of important vars (e.g. $VAR's value before/after incrementing)
 #
-debug_func() {
-    [ $1 -le $DEBUG_LEVEL ] && echo -e "${2}Debug $* -----"
-}
+#debug_func() {
+#    [ $1 -le $DEBUG_LEVEL ] && echo -e "${2}Debug $* -----"
+#}
+#
 ################################################################################
 ### TESTS/VALIDATIONS ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 # Is lynx installed?
@@ -88,11 +89,10 @@ lynx -source "$URL" | \
        grep 'blurb' | \
        sed 's/<div.*storyheadline">//;s/<\/span.*//' > headlines.out
 
-while read -r heads
+while read -r headlines
 do
-    echo -e "${GREEN}Title:${ESC} ${CIAN}heads${ESC}"
+    echo "${GREEN} Title: ${CIAN}$headlines${ESC}"
 done < "$SRC_FILE"
-cat -n "$SRC_FILE"
 #
 ### END OF CODE ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ################################################################################
