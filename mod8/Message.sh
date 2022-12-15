@@ -95,9 +95,10 @@ sum_func() {
 #
 while read -r line
 do
-  [ "$(echo $line | cut -c1)" = "#" ] && continue
-  echo "$line"
-done < "$CONFIG_FILE"
+  [ "$(echo $line | cut -c1)" = "#" ] && continue  #"true" if commented line
+  [ ! "$line" ]                       && continue  #"true" if empty line
+  echo "$line"        #show each file's line  at time
+done < "$CONFIG_FILE" #uses each line of "CONFIG_FILE" as input
 
 #echo "$MESSAGE"
 #
