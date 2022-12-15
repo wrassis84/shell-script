@@ -64,30 +64,22 @@ VERSION="v1.0" # Program's version
 ################################################################################
 ### FUNCTION DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
-#   The "debug_func" function below displays debug messages according to desired
-#   debug level.
-#   To use it, just place it on the desired line with the debug level as an
-#   argument and the "DEBUG MESSAGE" between double quotes. We can use the
-#   following levels:
-#   1 - generic messages          (location, eg: START/END of the program);
-#   2 - flow location messages    (eg entering/leaving WHILE);
-#   3 - content of important vars (e.g. $VAR's value before/after incrementing)
+#   The "hdl_param_func" function read a config file and validates values
+#   received from "main code" (by "$1") and assigns them to respective global
+#   vars.
 #
-debug_func() {
-    [ $1 -le $DEBUG_LEVEL ] && echo -e "${2}Debug $* -----"
-}
 
-sum_func() {
-  local total=0
-
-  for i in $(seq 1 25); do
-    # Debug level 1
-    debug_func 1 ${GREEN}  "Entering FOR with value: $i" 
-    total=$(($total+$i))
-    # Debug level 2
-    debug_func 2 ${YELLOW} "After sum: $total"
-  done
-  #echo $total
+hdl_param_func() {
+  #stores "$1"'s 1st field value on local variable called "parameter"
+  local parameter="$(echo $line | cut -d= -f1)"
+  #stores "$1"'s 2nd field value on local variable called "param_value"
+  local param_value="$(echo $line | cut -d= -f2)"
+  #validates values received from "$1" and
+  #assigns them to respective global vars "UPPERCASE" and "COLORS"
+  case "$parameter" in
+    UPPERCASE) UPPERCASE="$param_value";;
+    COLORS)    COLORS="$param_value"   ;;
+  esac
 }
 #
 ################################################################################
@@ -97,10 +89,13 @@ while read -r line
 do
   [ "$(echo $line | cut -c1)" = "#" ] && continue  #"true" if commented line
   [ ! "$line" ]                       && continue  #"true" if empty line
-  echo "$line"        #show each file's line  at time
+  #echo "$line"        #show each file's line  at time
+  hdl_param_func "$line" #attributes "$line"'s value for
+                         #"hdl_param_func" function as "$1"
 done < "$CONFIG_FILE" #uses each line of "CONFIG_FILE" as input
 
-#echo "$MESSAGE"
+echo "UPPERCASE's value: $UPPERCASE"
+echo "COLORS's values: $COLORS"
 #
 ### END OF CODE ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ################################################################################
