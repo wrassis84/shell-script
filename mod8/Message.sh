@@ -45,12 +45,10 @@ PURPLE="\033[35;1m" #|
 CIAN="\033[36;1m"   #|
 
 MESSAGE="
-        Theory and practice sometimes clash. And when that happens,
-        theory loses. Every single time.
-                                                    - Linus Torvalds
-
-        https://www.goodreads.com/author/quotes/92867.Linus_Torvalds
-"
+        Theory and practice sometimes clash. And when that happens, \n
+        theory loses. Every single time.\n
+        \t\t\t\t\t\t\b\b\b\b\b - Linus Torvalds
+" #https://www.goodreads.com/author/quotes/92867.Linus_Torvalds
 VERSION="v1.0" # Program's version
 #
 ################################################################################
@@ -89,15 +87,17 @@ while read -r line
 do
   [ "$(echo $line | cut -c1)" = "#" ] && continue  #"true" if commented line
   [ ! "$line" ]                       && continue  #"true" if empty line
-  #echo "$line"        #show each file's line  at time
-  hdl_param_func "$line" #attributes "$line"'s value for
-                         #"hdl_param_func" function as "$1"
+  #echo "$line"       #show each file's line at time
+  hdl_param_func "$line"   #attributes "$line"'s value for
+                           #"hdl_param_func" function as "$1"
 done < "$CONFIG_FILE" #uses each line of "CONFIG_FILE" as input
 
-echo "UPPERCASE's value: $UPPERCASE"
-echo "COLORS's values: $COLORS"
+[ "$UPPERCASE" = "1" ] && MESSAGE="$(echo $MESSAGE | tr [a-z] [A-Z])"
+[ "$COLORS" = "1" ]    && MESSAGE="$(echo    ${PURPLE}$MESSAGE)"
+
+echo "$MESSAGE"
 #
 ### END OF CODE ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ################################################################################
-### TODO: Add RED color to error messages.
+### FIXME: Do not work well when using UPPERCASE. :(
 ################################################################################
