@@ -34,28 +34,32 @@
 ################################################################################
 ### VARIABLE DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
-DEBUG=0
-DEBUG_LEVEL=0
-USAGE_MESSAGE="
-  Help Menu for $(basename $0) Program:
-  [OPTIONS]:
-   -h - Show this help.
-   -v - Show program version.
-   -d - Choose debug level. We have "1" and "2" levels.
-   NOTE: Debug level must be like this:
-   ./Color.sh -d 1
-   ./Color.sh -d 2
-"
-# The debug level will passed by "$1": ./Colors.sh -d 1
-DEBUG_LEVEL=${1:-0}
-# Colors for debug messages according level:
-GREEN="\033[32;1m"  # Level 1
-YELLOW="\033[33;1m" # Level 2
-RED="\033[31;1m"    # Level 3
-PURPLE="\033[35;1m"
-CIAN="\033[36;1m"
+CONFIG_FILE="Options.conf"
+UPPERCASE=
+COLORS=
 
-VERSION="v1.2"
+GREEN="\033[32;1m"  #|
+YELLOW="\033[33;1m" #|
+RED="\033[31;1m"    #| Colors for output:
+PURPLE="\033[35;1m" #|
+CIAN="\033[36;1m"   #|
+
+MESSAGE="
+        Theory and practice sometimes clash. And when that happens,
+        theory loses. Every single time.
+                                                    - Linus Torvalds
+
+        https://www.goodreads.com/author/quotes/92867.Linus_Torvalds
+"
+VERSION="v1.0" # Program's version
+#
+################################################################################
+### TESTS/VALIDATIONS ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+#
+[ ! -r "$CONFIG_FILE" ] \
+                     && echo -n "No read permission on "$CONFIG_FILE" file!\n" \
+                     && echo -n "[ENTER] to continue:" && read REPLY && clear  \
+                     && exit 1
 #
 ################################################################################
 ### FUNCTION DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -85,20 +89,13 @@ sum_func() {
   done
   #echo $total
 }
-################################################################################
-### TESTS/VALIDATIONS ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
 ################################################################################
 ### BEGIN OF CODE ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
-case "$1" in
-    -d) [ $2 ] && DEBUG_LEVEL=$2  ;;
-    -v) echo "$VERSION" && exit 0 ;;
-    -h) echo "$USAGE_MESSAGE"     ;;
-     *) sum_func                  ;;
-esac
-
-sum_func
+echo "$MESSAGE"
 #
 ### END OF CODE ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+################################################################################
+### TODO: Add RED color to error messages.
 ################################################################################
