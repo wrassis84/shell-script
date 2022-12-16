@@ -75,8 +75,8 @@ hdl_param_func() {
   #validates values received from "$1" and
   #assigns them to respective global vars "UPPERCASE" and "COLORS"
   case "$parameter" in
-    UPPERCASE) UPPERCASE="$param_value";;
-    COLORS)    COLORS="$param_value"   ;;
+    UPPERCASE) UPPERCASE=$param_value;;
+    COLORS)    COLORS=$param_value   ;;
   esac
 }
 #
@@ -92,8 +92,8 @@ do
                            #"hdl_param_func" function as "$1"
 done < "$CONFIG_FILE" #uses each line of "CONFIG_FILE" as input
 
-[ "$UPPERCASE" = "1" ] && MESSAGE="$(echo $MESSAGE | tr [a-z] [A-Z])"
-[ "$COLORS" = "1" ]    && MESSAGE="$(echo    ${PURPLE}$MESSAGE)"
+[ $UPPERCASE -eq 1 ] && MESSAGE="$(echo $MESSAGE | tr [a-z] [A-Z])"
+[ $COLORS -eq 1 ]    && MESSAGE="$(echo    ${PURPLE}$MESSAGE)"
 
 echo "$MESSAGE"
 #
