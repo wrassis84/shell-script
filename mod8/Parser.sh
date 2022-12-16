@@ -5,20 +5,15 @@
 ################################################################################
 ### ABOUT ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
-# Parser.sh - This program is a generic parser for config files.
+# Repository  : https://github.com/wrassis84/shell-script
+# Author      : William Ramos de Assis Rezende
+# Maintainer  : William Ramos de Assis Rezende
 #
-# Site      : https://github.com/wrassis84/shell-script
-# Author    : William Ramos de Assis Rezende
-# Maintainer: William Ramos de Assis Rezende
-#
-################################################################################
-### DESCRIPTION ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-#
-# This program will parse the configuration files and treat them as inputs to
-# the main program.
-#
-# Usage:
-# ./Parser.sh
+# "Parser.sh" : This program is a generic parser for config files.
+#               This program will parse the configuration files and
+#               treat them as inputs to the main program.
+# Usage       :
+#              ./Parser.sh
 #
 ################################################################################
 ### CHANGELOG ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
