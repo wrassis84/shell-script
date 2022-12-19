@@ -34,7 +34,7 @@
 ################################################################################
 ### VARIABLE DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
-CONFIG_FILE="Options.conf"
+CONFIG_FILE="Message.conf"
 UPPERCASE=
 COLORS=
 
@@ -99,5 +99,5 @@ echo "$MESSAGE"
 #
 ### END OF CODE ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ################################################################################
-### FIXME: Do not work well when using UPPERCASE. :(
+### FIXME: Do not work well when using UPPERCASE and multiline quotes. :(
 ################################################################################
