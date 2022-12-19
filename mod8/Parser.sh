@@ -18,6 +18,9 @@
 ################################################################################
 ### CHANGELOG ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
+# v1.1 19/12/2022, William Ramos de Assis Rezende:
+#  - Parser receives and parsing config file by "$1" statement;
+#
 # v1.0 16/12/2022, William Ramos de Assis Rezende:
 #  - Parser's first version;
 #
@@ -25,6 +28,10 @@
 ### TESTING ENVIRONMENT ::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
 # zsh 5.8.1
+#
+################################################################################
+### VARIABLE DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
+CONFIG_FILE="$1"
 #
 ################################################################################
 ### TESTS/VALIDATIONS ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -47,6 +54,11 @@ while read -r line
 do
   [ "$(echo $line | cut -c1)" = "#" ] && continue   #skip if commented line
   [ ! "$line" ]                       && continue   #skip if empty line
+  #stores "$1"'s 1st field value on local variable called "key"
+  key="$(echo $line | cut -d = -f 1)"
+  #stores "$1"'s 2nd field value on local variable called "value"
+  value="$(echo $line | cut -d = -f 2)"
+  echo "CONF_$key=$value"
 done < "$CONFIG_FILE"  #uses each line of "CONFIG_FILE" as input
 #
 ### END OF CODE ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
