@@ -5,19 +5,14 @@
 ################################################################################
 ### ABOUT ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
-# TecMintNews.sh - Shows homepage articles from "www.tecmint.com" website. 
+# Repository      : https://github.com/wrassis84/shell-script
+# Author          : William Ramos de Assis Rezende
+# Maintainer      : William Ramos de Assis Rezende
 #
-# Site      : https://github.com/wrassis84/shell-script
-# Author    : William Ramos de Assis Rezende
-# Maintainer: William Ramos de Assis Rezende
+# "TecMintNews.sh": Shows homepage articles from "www.tecmint.com" website.
 #
-################################################################################
-### DESCRIPTION ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-#
-# This program will show homepage articles from "www.tecmint.com" website. 
-#
-# Usage:
-# ./TecMintNews.sh
+# Usage           :
+#                   ./TecMintNews.sh
 #
 ################################################################################
 ### CHANGELOG ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
