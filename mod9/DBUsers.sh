@@ -87,8 +87,21 @@ listusers_func () {
 # This function checks if a user exists on Database file
 checkusers_func () {
   grep -i -q "$1$SEP" "$DB_FILE"
-  [ "$?" = "0" ] && echo "User '$1' already exists on Database!"
-  [ "$?" = "1" ] && echo "User '$1' not exists on Database!"
+  #[ "$?" = "0" ] && echo "${YELLOW}WARN: User '$1' already exists on Database!"
+  #[ "$?" = "1" ] && echo "${YELLOW}INFO: User '$1' not exists on Database!"
+}
+
+# This function insert a user in Database, before checking if it exists
+insertusers_func () {
+  local login="$(echo $1 | cut -d $SEP -f 1)"
+  if checkusers_func "$login"
+  then
+    echo "${RED}WARN: Login '$login' already exists on Database!"
+  else
+    # appends register at end of Database file
+    echo "$*" >> "$DB_FILE" && \
+    echo "${GREEN}INFO: Login '$login' succesfully inserted on Database!"
+  fi
 }
 #
 ################################################################################
@@ -97,5 +110,3 @@ checkusers_func () {
 #
 ### END OF CODE ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ################################################################################
-# FIXME: Handle HTML special characteres like "&#8217;";
-# TODO: Add option to number output lines;
