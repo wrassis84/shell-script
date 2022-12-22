@@ -61,11 +61,12 @@ VERSION="v1.0"
 ################################################################################
 ### FUNCTION DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
+# This function cuts fields from Database file
 extractfields_func () {
-    local login="$(echo $1 | cut -d $SEP -f 1)"
-    local name="$(echo $1 | cut -d $SEP -f 2)"
-    local age="$(echo $1 | cut -d $SEP -f 3)"
-    local gender="$(echo $1 | cut -d $SEP -f 4)"
+    local login="$(echo $1 | cut -d $SEP -f 1)"  # cuts the 1st field
+    local name="$(echo $1 | cut -d $SEP -f 2)"   # cuts the 2nd field
+    local age="$(echo $1 | cut -d $SEP -f 3)"    # cuts the 3rd field
+    local gender="$(echo $1 | cut -d $SEP -f 4)" # cuts the 4th field
 
     echo -e "${YELLOW}login:  $login"
     echo -e "${YELLOW}name:   $name"
@@ -73,6 +74,7 @@ extractfields_func () {
     echo -e "${YELLOW}gender: $gender"
 }
 
+# This function list all users on Database file after fields cutting
 listusers_func () {
   while read -r line
   do
@@ -80,6 +82,13 @@ listusers_func () {
                           [ ! "$line" ] && continue #skip empty lines
     extractfields_func "$line"
   done < "$DB_FILE"
+}
+
+# This function checks if a user exists on Database file
+checkusers_func () {
+  grep -i -q "$1$SEP" "$DB_FILE"
+  [ "$?" = "0" ] && echo "User '$1' already exists on Database!"
+  [ "$?" = "1" ] && echo "User '$1' not exists on Database!"
 }
 #
 ################################################################################
