@@ -42,21 +42,24 @@ VERSION="v1.0"
 ################################################################################
 ### FUNCTION DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
+extractfields_func () {
+    local login="$(echo $1 | cut -d: -f1)"
+    local name="$(echo $1 | cut -d: -f2)"
+    local age="$(echo $1 | cut -d: -f3)"
+    local gender="$(echo $1 | cut -d: -f4)"
+
+    echo -e "${YELLOW}login:  $login"
+    echo -e "${YELLOW}name:   $name"
+    echo -e "${YELLOW}age:    $age"
+    echo -e "${YELLOW}gender: $gender"
+}
+
 listusers_func () {
   while read -r line
   do
     [ "$(echo $line | cut -c1)" = "#" ] && continue #skip commented lines
-    [ ! "$line" ] && continue #skip empty lines
-
-    local login="$(echo $line | cut -d: -f1)"
-    local name="$(echo $line | cut -d: -f2)"
-    local age="$(echo $line | cut -d: -f3)"
-    local gender="$(echo $line | cut -d: -f4)"
-
-    echo -e "${YELLOW}login: $login"
-    echo -e "${YELLOW}name: $name"
-    echo -e "${YELLOW}age: $age"
-    echo -e "${YELLOW}gender: $gender"
+                          [ ! "$line" ] && continue #skip empty lines
+    extractfields_func "$line"
   done < "$DB_FILE"
 }
 #
