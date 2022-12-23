@@ -96,7 +96,7 @@ checkusers_func () {
 # This function insert a user in Database, before checking if it exists
 insertusers_func () {
   local login="$(echo $1 | cut -d $SEP -f 1)"
-  if checkusers_func "$login"
+  if checkusers_func "$login" # if "true" - if "login" already exists
   then
     echo "${RED}WARN: Login '$login' already exists on Database!"
   else
