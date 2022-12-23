@@ -47,6 +47,7 @@
 ### VARIABLE DECLARATION :::::::::::::::::::::::::::::::::::::::::::::::::::::::
 #
 DB_FILE="Users.txt" # Database file
+TMP_FILE="Temp.$$"
 SEP=:
 
 RED="\033[31;1m"    #|
@@ -103,6 +104,14 @@ insertusers_func () {
     echo "$*" >> "$DB_FILE" && \
     echo "${GREEN}INFO: Login '$login' succesfully inserted on Database!"
   fi
+}
+
+# This function remove a user of Database, before checking if it exists
+deleteuser_func () {
+  checkusers_func "$1" || return
+  grep -i -v "$1$SEP" "$DB_FILE" > "$TMP_FILE"
+  mv "$TMP_FILE" "$DB_FILE"
+  echo "${YELLOW}INFO: Login '$login' succesfully removed of Database!"
 }
 #
 ################################################################################

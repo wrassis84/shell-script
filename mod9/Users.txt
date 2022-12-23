@@ -6,3 +6,6 @@ ana:Ana Paula de Souza:58:F
 mario:Mário da Silva:35:M
 jose:José Carlos Vaz:45:M
 joao:João Carlos Batista:40:M
+bender:Bender Bending Rodriguez:240:M
+leela:Turanga Leela:29:F
+hermes:Hermes Conrad:40:M
