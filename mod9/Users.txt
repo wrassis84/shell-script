@@ -5,3 +5,4 @@ luciana:Luciana Silveira:22:F
 ana:Ana Paula de Souza:58:F
 mario:Mário da Silva:35:M
 jose:José Carlos Vaz:45:M
+joao:João Carlos Batista:40:M

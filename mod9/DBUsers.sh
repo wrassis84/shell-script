@@ -80,6 +80,7 @@ listusers_func () {
   do
     [ "$(echo $line | cut -c1)" = "#" ] && continue #skip commented lines
                           [ ! "$line" ] && continue #skip empty lines
+    [ "$(echo $line | grep login)"  ]   && continue #skip lines with "login"
     extractfields_func "$line"
   done < "$DB_FILE"
 }
