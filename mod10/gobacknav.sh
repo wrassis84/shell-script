@@ -52,21 +52,21 @@ while : ; do
   case "$next" in
     first)
       next=name
-      dialog --backtitle 'Data Catch' \
+      dialog --backtitle 'Data Catch'       \
         --msgbox 'Welcome at Data Catch!' 0 0
     ;;
     name)
       previous=first
       next=age
-      name=$(dialog --stdout          \
-        --backtitle 'Data Catch'      \
-        --inputbox  'Your name:' 0 0  )
+      name=$(dialog --stdout         \
+        --backtitle 'Data Catch'     \
+        --inputbox  'Your name:' 0 0 )
     ;;
     age)
       previous=name
       next=marital
       age=$(dialog --stdout                  \
-        --backtitle 'Data Catch'             \ 
+        --backtitle 'Data Catch'             \
         --menu      'How old are you?' 0 0 0 \
         'under 15 years old' ''              \
         'between 15 and 25 years old' ''     \
@@ -80,23 +80,37 @@ while : ; do
         --backtitle 'Data Catch'            \
         --radiolist 'Marital Status:' 0 0 0 \
         'not married' '' off                \
-        'engaged' ''     off                \
-        'married' ''     on                 \
-        'widower' ''     off                )
+        'engaged'     '' off                \
+        'married'     '' off                \
+        'widower'     '' off                )
     ;;
     preferences)
       previous=marital
-      next=final
+      next=education
       preferences=$(dialog --stdout           \
         --separate-output                     \
         --backtitle 'Data Catch'              \
         --checklist 'What do you like?' 0 0 0 \
-        'play soccer' ''    off               \
-        'fishing' ''        off               \
-        'go to the mall' '' off               \
-        'ride bike' ''      off               \
-        'camping' ''        off               \
-        'sleep' ''          off               )  
+        'play soccer'        '' off           \
+        'listening to music' '' off           \
+        'go to the mall'     '' off           \
+        'ride bike'          '' off           \
+        'camping'            '' off           \
+        'sleep'              '' off           )
+    ;;
+    education)
+      previous=preferences
+      next=final
+      education=$(dialog --stdout            \
+        --backtitle 'Data Catch'             \
+        --radiolist 'Education level:' 0 0 0 \
+        'elementary school'  '' off          \
+        'middle school'      '' off          \
+        'high school'        '' off          \
+        'associate degree'   '' off          \
+        'barchelor degree'   '' off          \
+        'graduate school'    '' off          \
+        'master degree'      '' off          )
     ;;
     final)
       dialog                            \
@@ -110,7 +124,8 @@ while : ; do
         Age           : $age
         Marital Status: $marital
         Preferences   : \n$preferences
-        " 14 40
+        Education     : $education
+        " 0 0
       break
     ;;
     *)
